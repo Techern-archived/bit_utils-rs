@@ -1,0 +1,12 @@
+[package]
+name = "bit_utils"
+version = "0.0.0"
+authors = ["Cruz Julian Bishop <cruzjbishop@gmail.com>"]
+
+description = "Bit utilities (and eventually Nibble support) for Rust"
+
+repository = "https://github.com/Techern/bit_utils-rs"
+readme = "README.md"
+
+keywords = ["bit", "bitwise", "nibble"]
+license = "MIT"
