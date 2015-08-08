@@ -47,7 +47,6 @@ mod tests {
     #[test]
     fn test_number_of_bits_u8() {
         assert_eq!(8, 1u8.number_of_bits());
-        assert_eq!(8, 255u8.number_of_bits());
     }
     
     #[test]
