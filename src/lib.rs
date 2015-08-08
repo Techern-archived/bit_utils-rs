@@ -158,6 +158,40 @@ impl BitInformation for i64 {
 
 }
 
+impl BitInformation for usize {
+
+    /// Gets the number of bits contained in this type
+    fn number_of_bits(&self) -> usize {
+        (self.count_ones() + self.count_zeros()) as usize
+    }
+    
+    fn has_x_bit(&self, position: usize) -> bool {
+        if self.is_bit_in_bounds(position) {
+            return (self & (0b0000000000000000000000000000000000000000000000000000000000000001 << position)) != 0;
+        } else {
+            return false; //Huh
+        }
+    }
+
+}
+
+impl BitInformation for isize {
+
+    /// Gets the number of bits contained in this type
+    fn number_of_bits(&self) -> usize {
+        (self.count_ones() + self.count_zeros()) as usize
+    }
+    
+    fn has_x_bit(&self, position: usize) -> bool {
+        if self.is_bit_in_bounds(position) {
+            return (self & (0b0000000000000000000000000000000000000000000000000000000000000001 << position)) != 0;
+        } else {
+            return false; //Huh
+        }
+    }
+
+}
+
 #[allow(overflowing_literals)] //Just for tests, don't do this in real life, kids!
 #[cfg(test)]
 mod tests {
