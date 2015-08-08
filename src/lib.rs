@@ -90,6 +90,40 @@ impl BitInformation for i16 {
 
 }
 
+impl BitInformation for u32 {
+
+    /// Gets the number of bits contained in this type
+    fn number_of_bits(&self) -> usize {
+        32
+    }
+    
+    fn has_x_bit(&self, position: usize) -> bool {
+        if self.is_bit_in_bounds(position) {
+            return (self & (0b00000000000000000000000000000001 << position)) != 0;
+        } else {
+            return false; //Huh
+        }
+    }
+
+}
+
+impl BitInformation for i32 {
+
+    /// Gets the number of bits contained in this type
+    fn number_of_bits(&self) -> usize {
+        32
+    }
+    
+    fn has_x_bit(&self, position: usize) -> bool {
+        if self.is_bit_in_bounds(position) {
+            return (self & (0b00000000000000000000000000000001 << position)) != 0;
+        } else {
+            return false; //Huh
+        }
+    }
+
+}
+
 #[allow(overflowing_literals)] //Just for tests, don't do this in real life, kids!
 #[cfg(test)]
 mod tests {
@@ -168,8 +202,8 @@ mod tests {
     #[test]
     fn test_most_signifigant_bit_u16() {
         assert!(1u16.has_most_signifigant_bit() == false);
-        assert!(0b10101010u8.has_most_signifigant_bit() == true);
-        assert!(0b10111000u8.has_most_signifigant_bit() == true);
+        assert!(0b1010101010101010u16.has_most_signifigant_bit() == true);
+        assert!(0b1011100000000000u16.has_most_signifigant_bit() == true);
     }
     
     #[test]
@@ -208,8 +242,8 @@ mod tests {
     #[test]
     fn test_most_signifigant_bit_i16() {
         assert!(1i16.has_most_signifigant_bit() == false);
-        assert!(0b10101010i8.has_most_signifigant_bit() == true);
-        assert!(0b10111000i8.has_most_signifigant_bit() == true);
+        assert!(0b1010101010101010i16.has_most_signifigant_bit() == true);
+        assert!(0b1011100000000000i16.has_most_signifigant_bit() == true);
     }
     
     #[test]
@@ -238,6 +272,118 @@ mod tests {
         assert!(num.has_x_bit(13) == true);
         assert!(num.has_x_bit(14) == false);
         assert!(num.has_x_bit(15) == true);
+    }
+
+    #[test]
+    fn test_number_of_bits_u32() {
+        assert_eq!(32, 1u32.number_of_bits());
+    }
+    
+    #[test]
+    fn test_most_signifigant_bit_u32() {
+        assert!(1u32.has_most_signifigant_bit() == false);
+        assert!(0b10101010101010101010101010101010u32.has_most_signifigant_bit() == true);
+        assert!(0b10111000000000000000000000000000u32.has_most_signifigant_bit() == true);
+    }
+    
+    #[test]
+    fn test_bit_in_bounds_u32() {
+        assert!(25u32.is_bit_in_bounds(30));
+        assert!(25u32.is_bit_in_bounds(57) == false);
+    }
+    
+    #[test]
+    fn test_has_x_bit_u32() {
+        let num: u32 = 0b10101010101010101010101010101010u32;
+        
+        assert!(num.has_x_bit(0) == false);
+        assert!(num.has_x_bit(1) == true);
+        assert!(num.has_x_bit(2) == false);
+        assert!(num.has_x_bit(3) == true);
+        assert!(num.has_x_bit(4) == false);
+        assert!(num.has_x_bit(5) == true);
+        assert!(num.has_x_bit(6) == false);
+        assert!(num.has_x_bit(7) == true);
+        assert!(num.has_x_bit(8) == false);
+        assert!(num.has_x_bit(9) == true);
+        assert!(num.has_x_bit(10) == false);
+        assert!(num.has_x_bit(11) == true);
+        assert!(num.has_x_bit(12) == false);
+        assert!(num.has_x_bit(13) == true);
+        assert!(num.has_x_bit(14) == false);
+        assert!(num.has_x_bit(15) == true);
+        assert!(num.has_x_bit(16) == false);
+        assert!(num.has_x_bit(17) == true);
+        assert!(num.has_x_bit(18) == false);
+        assert!(num.has_x_bit(19) == true);
+        assert!(num.has_x_bit(20) == false);
+        assert!(num.has_x_bit(21) == true);
+        assert!(num.has_x_bit(22) == false);
+        assert!(num.has_x_bit(23) == true);
+        assert!(num.has_x_bit(24) == false);
+        assert!(num.has_x_bit(25) == true);
+        assert!(num.has_x_bit(26) == false);
+        assert!(num.has_x_bit(27) == true);
+        assert!(num.has_x_bit(28) == false);
+        assert!(num.has_x_bit(29) == true);
+        assert!(num.has_x_bit(30) == false);
+        assert!(num.has_x_bit(31) == true);
+    }
+
+    #[test]
+    fn test_number_of_bits_i32() {
+        assert_eq!(32, 1i32.number_of_bits());
+    }
+    
+    #[test]
+    fn test_most_signifigant_bit_i32() {
+        assert!(1i32.has_most_signifigant_bit() == false);
+        assert!(0b10101010101010101010101010101010i32.has_most_signifigant_bit() == true);
+        assert!(0b10111000000000000000000000000000i32.has_most_signifigant_bit() == true);
+    }
+    
+    #[test]
+    fn test_bit_in_bounds_i32() {
+        assert!(25i32.is_bit_in_bounds(30));
+        assert!(25i32.is_bit_in_bounds(57) == false);
+    }
+    
+    #[test]
+    fn test_has_x_bit_i32() {
+        let num: i32 = 0b10101010101010101010101010101010i32;
+        
+        assert!(num.has_x_bit(0) == false);
+        assert!(num.has_x_bit(1) == true);
+        assert!(num.has_x_bit(2) == false);
+        assert!(num.has_x_bit(3) == true);
+        assert!(num.has_x_bit(4) == false);
+        assert!(num.has_x_bit(5) == true);
+        assert!(num.has_x_bit(6) == false);
+        assert!(num.has_x_bit(7) == true);
+        assert!(num.has_x_bit(8) == false);
+        assert!(num.has_x_bit(9) == true);
+        assert!(num.has_x_bit(10) == false);
+        assert!(num.has_x_bit(11) == true);
+        assert!(num.has_x_bit(12) == false);
+        assert!(num.has_x_bit(13) == true);
+        assert!(num.has_x_bit(14) == false);
+        assert!(num.has_x_bit(15) == true);
+        assert!(num.has_x_bit(16) == false);
+        assert!(num.has_x_bit(17) == true);
+        assert!(num.has_x_bit(18) == false);
+        assert!(num.has_x_bit(19) == true);
+        assert!(num.has_x_bit(20) == false);
+        assert!(num.has_x_bit(21) == true);
+        assert!(num.has_x_bit(22) == false);
+        assert!(num.has_x_bit(23) == true);
+        assert!(num.has_x_bit(24) == false);
+        assert!(num.has_x_bit(25) == true);
+        assert!(num.has_x_bit(26) == false);
+        assert!(num.has_x_bit(27) == true);
+        assert!(num.has_x_bit(28) == false);
+        assert!(num.has_x_bit(29) == true);
+        assert!(num.has_x_bit(30) == false);
+        assert!(num.has_x_bit(31) == true);
     }
 
 }
