@@ -1,6 +1,6 @@
 [package]
 name = "bit_utils"
-version = "0.1.0"
+version = "0.1.1-dev"
 authors = ["Cruz Julian Bishop <cruzjbishop@gmail.com>"]
 
 description = "Bit utilities (and eventually Nibble support) for Rust"
