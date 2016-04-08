@@ -10,4 +10,4 @@ documentation = "http://techern.github.io/bit_utils-rs"
 readme = "README.md"
 
 keywords = ["bit", "bitwise", "nibble"]
-license = "MIT"
+license = "MIT OR Apache-2.0"
