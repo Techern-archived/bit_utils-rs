@@ -1,3 +1,7 @@
 target/
 
 Cargo.lock
+
+#Ignore IntelliJ IDEA files/folders
+.idea
+*.iml
